@@ -42,6 +42,27 @@
         		?>
         	</div>
         </nav>
-        <div id="front-page-banner" class="bg-dark">
+        <?php
+           $custom_logo = get_theme_mod('custom_logo');
+           $logo_url = wp_get_attachment_image_url($custom_logo, 'medium');
+         ?>
+        <nav class="navbar navbar-light bg-light justify-content-center">
+            <?php if($custom_logo): ?>
+                <a class="navbar-brand" href="#">
+                 <img src="<?= $logo_url  ?>" height="50" alt="">
+               </a>
+            <?php else: ?>
+                <a class="navbar-brand" href="#"><?= bloginfo('name');  ?></a>
+            <?php endif; ?>
+        </nav>
+        <?php
+            if(get_header_image() == false){
+                $image = get_template_directory_uri() . '/assets/images/default.jpg';
+            } else {
+                $image = get_header_image();
+            }
+        ?>
+
+        <div id="front-page-banner" class="bg-dark" style="background-image: url(<?= $image; ?>)">
 
         </div>

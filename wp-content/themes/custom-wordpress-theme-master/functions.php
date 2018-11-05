@@ -4,9 +4,6 @@
     It will be different on every theme you create.
 */
 
-
-
-
 /*
     What we are doing bellow is adding our bootstrap styles into our theme.
     We can't do it the normal way which we have done in the past, but rather add it into the wp_head or wp_footer sections
@@ -84,3 +81,77 @@ add_action('init', 'addCustomMenus');
 
 */
 require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
+
+/*
+    Post formats are a way to customize the look of a post depending on what content
+    it should have. Adding the theme support will show the post formats panel on the
+    posts pages. There is a list of post formats available in the codex. You need to
+    specify which of the post formats you want to include in your site.
+    From that we can create files which render out the content differently.
+
+    Files to look at:
+        - front-page.php
+        - content.php
+        - content-*.php
+        - single.php
+
+    https://codex.wordpress.org/Post_Formats
+*/
+add_theme_support( 'post-formats', array( 'aside', 'gallery', 'image', 'video' , 'link') );
+
+require get_parent_theme_file_path('./addons/custom_post_types.php');
+
+function addCustomLogo(){
+    add_theme_support('custom-logo', array(
+        'height' => 100,
+        'width' => 300,
+        'flex-width' => true,
+        'flex-height' => true
+    ));
+}
+add_action('init', 'addCustomLogo');
+
+function wpsites_before_post_widget( $content ) {
+	if ( is_singular( array( 'post', 'page' ) ) && is_active_sidebar( 'before-post' ) && is_main_query() ) {
+		dynamic_sidebar('before-post');
+	}
+	return $content;
+}
+add_filter( 'the_content', 'wpsites_before_post_widget' );
+
+function register_my_sidebars(){
+    register_sidebar(array(
+        'id' => 'front_page_sidebar',
+        'name' => 'Front Page Sidebar',
+        'description' => 'The sidebar which appears on the front page',
+        'before_widget' => '<div id="%1$s" class="widget customWidget %2$s">',
+        "after_widget" => '</div>',
+        'before_title' => '<h3 class="widgetTitle">',
+        'after_title' => '</h3>'
+    ));
+}
+add_action('widgets_init', 'register_my_sidebars');
+
+register_default_headers(array(
+    'banner' => array(
+        'url' => get_template_directory_uri() . '/assets/images/default.jpg',
+        'thumbnail_url' => get_template_directory_uri() . '/assets/images/default.jpg',
+        'description' => 'Defualt banner image for front page',
+    )
+));
+
+function add_Custom_Header(){
+    $defaults = array(
+    	'default-image'          => get_template_directory_uri() . '/assets/images/default.jpg', //gets the path to where our template folder is
+    	'width'                  => 1280,
+    	'height'                 => 720,
+    	'flex-height'            => false,
+    	'flex-width'             => false,
+    	'uploads'                => true,
+    	'random-default'         => false,
+    	'header-text'            => true,
+    	'default-text-color'     => ''
+    );
+    add_theme_support( 'custom-header', $defaults );
+}
+add_action('init', 'add_Custom_Header');

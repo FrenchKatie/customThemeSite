@@ -1,3 +1,10 @@
+<!--
+    Based on the wordpress hierarchy,
+    this page renders a 404 page if a page or post cannot be found
+    https://developer.wordpress.org/themes/functionality/404-pages/
+-->
 <?php get_header(); ?>
-<h1>404 Error page</h1>
+<div class="container">
+    <h1>404 page</h1>
+</div>
 <?php get_footer(); ?>

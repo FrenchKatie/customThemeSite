@@ -100,6 +100,7 @@ require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
 add_theme_support( 'post-formats', array( 'aside', 'gallery', 'image', 'video' , 'link') );
 
 require get_parent_theme_file_path('./addons/custom_post_types.php');
+require get_parent_theme_file_path('./addons/custom_customiser.php');
 
 function addCustomLogo(){
     add_theme_support('custom-logo', array(

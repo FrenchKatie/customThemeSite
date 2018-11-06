@@ -14,6 +14,12 @@
              <div class="row">
                  <div class="col">
                      <h1>Home Page</h1>
+
+                     <?php
+                        //mod is the setting name
+                        //do this to check what is happening
+                        echo get_theme_mod('header_background_colour_setting');
+                     ?>
                  </div>
              </div>
              <div class="row">

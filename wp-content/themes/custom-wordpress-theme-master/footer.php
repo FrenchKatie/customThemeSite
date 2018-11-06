@@ -9,6 +9,16 @@
                 		) );
                      ?>
                 </div>
+                <?php $footerText = get_theme_mod('footer_text_setting'); ?>
+                <!-- If there is footer text then render this - if there is no text then dont show -->
+                <?php if(strlen($footerText) > 0): ?>
+                    <div class="row">
+                        <div class="col text-center">
+                            <p><?php echo get_theme_mod('footer_text_setting'); ?></p>
+
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </footer>
 

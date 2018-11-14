@@ -5,9 +5,9 @@
         <title></title>
         <?php wp_head(); ?>
     </head>
-    <body>
+    <body <?php body_class(); ?>>
         <!-- <h3>This is coming from header.php</h3> -->
-        <nav class="navbar navbar-expand-md navbar-light bg-light" role="navigation">
+        <nav class="navbar navbar-expand-md navbar-light header-bg" role="navigation">
           <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -19,11 +19,11 @@
                $logo_url = wp_get_attachment_image_url($custom_logo, 'medium');
              ?>
              <?php if($custom_logo): ?>
-                 <a class="navbar-brand" href="#">
+                 <a class="navbar-brand" href="<?= bloginfo('home');?>">
                   <img src="<?= $logo_url  ?>" height="50" alt="">
                 </a>
              <?php else: ?>
-                 <a class="navbar-brand" href="#"><?= bloginfo('name');  ?></a>
+                 <a class="navbar-brand" href="<?= bloginfo('home');?>"><?= bloginfo('name');  ?></a>
              <?php endif; ?>
 
                 <?php

@@ -5,10 +5,22 @@
         <title></title>
         <?php wp_head(); ?>
     </head>
-    <body>
+    <body <?php body_class(); ?>>
         <!-- <h3>This is coming from header-front.php</h3> -->
         <!-- <p>This will only be used on the front page</p> -->
-
+        <?php
+           $custom_logo = get_theme_mod('custom_logo');
+           $logo_url = wp_get_attachment_image_url($custom_logo, 'medium');
+         ?>
+        <nav class="navbar navbar-light justify-content-center header-bg">
+            <?php if($custom_logo): ?>
+                <a class="navbar-brand" href="<?= bloginfo('home');?>">
+                 <img src="<?= $logo_url  ?>" height="50" alt="">
+               </a>
+            <?php else: ?>
+                <a class="navbar-brand" href="<?= bloginfo('home');?>"><?= bloginfo('name');  ?></a>
+            <?php endif; ?>
+        </nav>
         <nav class="navbar navbar-expand-md navbar-light header-bg" role="navigation">
           <div class="container">
         	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,27 +54,17 @@
         		?>
         	</div>
         </nav>
-        <?php
-           $custom_logo = get_theme_mod('custom_logo');
-           $logo_url = wp_get_attachment_image_url($custom_logo, 'medium');
-         ?>
-        <nav class="navbar navbar-light header-bg justify-content-center">
-            <?php if($custom_logo): ?>
-                <a class="navbar-brand" href="#">
-                 <img src="<?= $logo_url  ?>" height="50" alt="">
-               </a>
-            <?php else: ?>
-                <a class="navbar-brand" href="#"><?= bloginfo('name');  ?></a>
-            <?php endif; ?>
-        </nav>
+
         <?php
             if(get_header_image() == false){
-                $image = get_template_directory_uri() . '/assets/images/default.jpg';
+                $bannerImage = get_template_directory_uri() . '/assets/images/default.jpeg';
             } else {
-                $image = get_header_image();
+                $bannerImage = get_header_image();
             }
-        ?>
+         ?>
 
-        <div id="front-page-banner" class="bg-dark" style="background-image: url(<?= $image; ?>)">
+        <?php if(get_header_image()): ?>
+            <div id="front-page-banner" class="bg-dark" style="background-image: url(<?= $bannerImage; ?>);">
 
-        </div>
+            </div>
+        <?php endif; ?>

@@ -7,10 +7,10 @@
 <?php if(have_posts()): ?>
     <?php while(have_posts()): the_post();?>
         <div class="container">
-            <div class="row">
+            <div class="row mb-5">
                 <div class="col">
                     <h1><?php the_title(); ?></h1>
-                    <div>
+                    <div class="wp_content">
                         <?php the_content(); ?>
                     </div>
                 </div>
@@ -34,6 +34,22 @@
                              <?php endif; ?>
                            <div class="card-body">
                              <h5 class="card-title"><?php the_title(); ?></h5>
+
+
+
+                             <?php
+                                $id = get_the_id();
+                                $staffRole = get_post_meta($id, 'staffRole', true);
+                             ?>
+
+                             <?php if($staffRole): ?>
+                                 <p><?= $staffRole; ?></p>
+                            <?php endif; ?>
+
+
+
+
+
                            </div>
                          </div>
                      <?php endwhile; ?>
